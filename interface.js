@@ -1,6 +1,7 @@
 "use strict";
 
 const automato = new Automato();
+// Elementos da tela que o JavaScript atualiza.
 const entrada = document.querySelector("#entrada");
 const estadoVisivel = document.querySelector("#estado");
 const situacao = document.querySelector("#situacao");
@@ -18,6 +19,7 @@ const SIGNIFICADOS = {
     D: "Começou com 0 · número par de zeros"
 };
 
+// Monta a tabela com as mesmas transições que o AFD usa.
 for (const [estado, transicoes] of Object.entries(TRANSICOES)) {
     const linha = matriz.insertRow();
     linha.dataset.estado = estado;
@@ -42,8 +44,7 @@ function nomeEstado(estado) {
     return estado ?? "Inválido";
 }
 
-// Letras minúsculas e dígitos não binários permanecem visíveis para
-// provocar rejeição. Maiúsculas, pontuação e outros símbolos são ignorados.
+// Mantém espaços, minúsculas e números. O AFD rejeita valores fora de {0, 1}.
 function filtrar(texto) {
     return Array.from(texto).filter((simbolo) => {
         return simbolo === " " ||
@@ -52,17 +53,18 @@ function filtrar(texto) {
 }
 
 function sincronizarSentenca(sentenca) {
-    // Na digitação no fim, só os novos símbolos avançam o autômato.
-    // Ao editar no meio ou apagar, refazemos o caminho a partir de S.
+    // Se o prefixo mudou ou foi apagado, refaz o percurso a partir de S.
     if (!sentenca.startsWith(automato.sentenca)) {
         automato.reiniciar();
     }
 
+    // Processa os símbolos que ainda faltam ler.
     for (const simbolo of sentenca.slice(automato.sentenca.length)) {
         automato.ler(simbolo);
     }
 }
 
+// Mostra o estado inicial e as transições na ordem da leitura.
 function desenharCaminho() {
     const fragmento = document.createDocumentFragment();
     const inicial = document.createElement("span");
@@ -93,6 +95,7 @@ function atualizarTela() {
         situacao.textContent = SIGNIFICADOS[automato.estado] + ".";
     }
 
+    // Destaca a linha do estado atual e a célula da última transição.
     const passo = automato.passos.at(-1);
     for (const linha of matriz.rows) {
         linha.setAttribute("aria-current", linha.dataset.estado === automato.estado ? "true" : "false");
@@ -105,6 +108,7 @@ function atualizarTela() {
     desenharCaminho();
 }
 
+// Mostra a decisão e guarda o percurso no histórico.
 function registrarResultado() {
     const aceitou = automato.aceita();
     const decisao = aceitou ? "Reconhecida" : "Rejeitada";
@@ -132,6 +136,7 @@ function registrarResultado() {
 function atualizarEntrada() {
     const original = entrada.value;
     const texto = filtrar(original);
+    // Cada espaço encerra uma cadeia. O trecho final segue em análise.
     const partes = texto.split(" ");
     const pendente = partes.pop();
     const inicioPendente = texto.length - pendente.length;
@@ -145,6 +150,7 @@ function atualizarEntrada() {
     }
     sincronizarSentenca(pendente);
 
+    // Ajusta o cursor ao remover caracteres ou cadeias finalizadas.
     if (original !== pendente) {
         const inicio = filtrar(original.slice(0, entrada.selectionStart)).length;
         const fim = filtrar(original.slice(0, entrada.selectionEnd)).length;
@@ -158,6 +164,7 @@ function atualizarEntrada() {
     atualizarTela();
 }
 
+// Eventos de digitação e colagem usam a mesma análise da entrada.
 entrada.addEventListener("input", (evento) => {
     if (!evento.isComposing) {
         atualizarEntrada();
@@ -176,6 +183,7 @@ entrada.addEventListener("paste", (evento) => {
     atualizarEntrada();
 });
 
+// Os exemplos só preenchem a entrada para simular a digitação.
 for (const botao of document.querySelectorAll("[data-exemplo]")) {
     botao.addEventListener("click", () => {
         entrada.value = botao.dataset.exemplo;

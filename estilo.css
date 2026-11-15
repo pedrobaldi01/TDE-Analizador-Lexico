@@ -12,6 +12,7 @@
 body { margin: 0; }
 .limite { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
 
+/* Cabeçalho e apresentação da regra. */
 .cabecalho {
     padding: 2.4rem 0 2.6rem;
     color: #fff;
@@ -40,6 +41,7 @@ h3 { font-size: .9rem; margin: 1.3rem 0 .5rem; }
 .regra span { padding: .35rem .65rem; border: 1px solid #46617e; border-radius: .55rem; color: #f4f8ff; }
 .regra b { color: #a6f1df; margin-right: .3rem; font-family: var(--codigo); }
 
+/* Organização e aparência dos cartões. */
 main { padding: 1.35rem 0 2.5rem; }
 .painel { display: grid; grid-template-columns: 1.04fr 1fr; gap: 1rem; }
 
@@ -74,6 +76,7 @@ kbd { padding: .02rem .25rem; border: 1px solid #cbd8e6; border-radius: .2rem; b
 button { cursor: pointer; padding: .24rem .5rem; border: 1px solid #c4d4e7; border-radius: .38rem; color: #174670; background: #f3f7fd; font: 700 .82rem var(--codigo); }
 button:hover { background: #e0edfc; }
 
+/* Estado atual e percurso da cadeia. */
 .leitura { display: grid; grid-template-columns: auto 1fr; gap: 1rem; margin-top: 1rem; padding: .7rem; border-radius: .65rem; background: #eff5fd; }
 .rotulo { font-size: .72rem; color: var(--suave); font-weight: 700; margin: 0; }
 output { display: inline-block; color: #174670; font: 750 1.25rem var(--codigo); margin-top: .15rem; }
@@ -89,12 +92,14 @@ th, td { padding: .5rem .45rem; border-bottom: 1px solid var(--borda); text-alig
 thead { background: #edf2f8; }
 th:nth-child(2), th:nth-child(3), td:nth-child(2), td:nth-child(3) { text-align: center; min-width: 2.25rem; font-family: var(--codigo); }
 th[scope="row"] { white-space: nowrap; font-family: var(--codigo); }
+/* Destaques do estado atual e da última transição. */
 tr[aria-current="true"] { background: #e7f0fd; }
 td.usada { background: #c8f0e3; color: #174f43; font-weight: 800; }
 .legenda { margin: .65rem 0 .9rem; }
 summary { color: #214f7d; font-size: .86rem; font-weight: 650; cursor: pointer; }
 pre { margin: .6rem 0 0; padding: .6rem .75rem; background: #f4f7fb; border-radius: .4rem; font-family: var(--codigo); }
 
+/* Resultados e histórico. */
 .historico { margin-top: 1rem; }
 .resultado { margin: 0; padding: .55rem .75rem; color: var(--suave); background: #f3f6fa; border-radius: .5rem; overflow-wrap: anywhere; }
 .aceita { color: #125b44; background: #e0f6ed; }
@@ -105,6 +110,7 @@ pre { margin: .6rem 0 0; padding: .6rem .75rem; background: #f4f7fb; border-radi
 #historico li:last-child { border-bottom: 0; padding-bottom: 0; }
 #historico code { display: block; margin: .35rem 0 .1rem; color: var(--suave); font: .82rem var(--codigo); }
 
+/* Empilha os cartões em telas menores. */
 @media (max-width: 760px) {
     .painel { grid-template-columns: 1fr; }
     .cabecalho { padding: 1.65rem 0; }

@@ -6,13 +6,13 @@
     <meta name="color-scheme" content="light">
     <title>Analisador léxico · Item t</title>
     <link rel="stylesheet" href="estilo.css">
+    <!-- Carrega o autômato antes do código da interface. -->
     <script src="automato.js" defer></script>
     <script src="interface.js" defer></script>
 </head>
 <body>
     <header class="cabecalho">
         <div class="limite">
-            <p class="sobretitulo">URI Erechim / Linguagens Formais / TDE</p>
             <div class="titulo">
                 <h1>Analisador léxico</h1>
                 <span class="etiqueta">Item t)</span>
@@ -26,6 +26,7 @@
     </header>
     <main class="limite">
         <div class="painel">
+            <!-- Entrada e percurso atual do autômato. -->
             <section class="cartao" aria-labelledby="titulo-entrada">
                 <div class="linha-titulo">
                     <span class="indice">01</span>
@@ -70,6 +71,7 @@
                     <thead>
                         <tr><th scope="col">Estado</th><th scope="col">0</th><th scope="col">1</th><th scope="col">O que representa</th></tr>
                     </thead>
+                    <!-- O JavaScript preenche as linhas da matriz. -->
                     <tbody id="matriz"></tbody>
                 </table>
                 <p class="ajuda legenda"><strong>→</strong> inicial · <strong>★</strong> final</p>
@@ -84,6 +86,7 @@ D → 0C | 1D</pre>
             </section>
         </div>
 
+        <!-- Último resultado e histórico da sessão. -->
         <section class="cartao historico" aria-labelledby="titulo-historico">
             <div class="linha-titulo">
                 <span class="indice">03</span>
